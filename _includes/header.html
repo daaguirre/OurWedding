@@ -1,15 +1,4 @@
-{% if page.slug == "pre" %}
     <section class="hero-wrap link-leader-container" id="top">
-{% endif %}
-
-{% if page.slug == "review" %}
-    <section class="hero-wrap hero-wrap--review link-leader-container" id="top">
-{% endif %}
-
-{% if page.slug == "poem" %}
-    <section class="hero-wrap hero-wrap--poem link-leader-container" id="top">
-{% endif %}
-
 
     <div class="bg-tint"></div>
 
@@ -30,8 +19,6 @@
           <span class="primary-nav__label">Main Menu:</span>
 
           <div class="nav-wrap">
-
-                {% if page.url == "/pre-wedding.html" %}
                 <div class="primary-nav__item">
                     <a href="#schedule">Schedule</a>
                     <span class="link-arrow">&rarr;</span>
@@ -53,34 +40,6 @@
                     <a href="#rsvp">RSVP</a>
                     <span class="link-arrow">&rarr;</span>
                 </div>
-
-                {% else %}
-                    <div class="primary-nav__item">
-                        <a href="#video">The video highlights</a>
-                        <span class="link-arrow">&rarr;</span>
-                    </div>
-
-                    <div class="primary-nav__item">
-                        <a href="#photos">The photo highlights</a>
-                        <span class="link-arrow">&rarr;</span>
-                    </div>
-
-                    <div class="primary-nav__item">
-                        <a href="/bridesmaid-poem.html">The Bridesmaid's poem</a>
-                        <span class="link-arrow">&rarr;</span>
-                    </div>
-
-
-                    <hr>
-
-                    <div class="primary-nav__item">
-                      <a href="/pre-wedding.html">Archived pre-wedding site</a>
-                      <span class="link-arrow">&rarr;</span>
-                    </div>
-                {% endif %}
-
-
-
           </div>
         </nav>
       </div>
