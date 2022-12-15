@@ -9,22 +9,6 @@ body {
   max-width: 100%;
 }
 
-.strip {
-  background-color: $dark-color;
-  color: $light-color;
-  margin: 2rem 0;
-  padding: 4rem 0;
-
-  a {
-    color: $grey-color;
-
-    &:hover {
-      color: $light-color;
-      border-bottom-color: $light-color;
-    }
-  }
-}
-
 .wrapper {
   max-width: $content-width;
   margin: auto;
@@ -37,10 +21,6 @@ body {
   text-align: left;
   border-bottom: 2px solid $dark-color;
   padding-top: 2rem;
-
-  .strip & {
-    border-bottom: 1px solid $light-color;
-  }
 }
 
 .section__image {
@@ -102,25 +82,5 @@ body {
     left: 0;
     width: 100% !important;
     height: 100% !important;
-  }
-}
-
-// Gallery
-.gallery__item img {
-  border: 1px solid $grey-color;
-}
-
-.note {
-  margin-bottom: 1rem;
-  padding: 2rem;
-  background: $light-color;
-
-
-  &, a {
-    color: $dark-color!important;
-  }
-
-  a {
-    text-decoration: underline;
   }
 }

@@ -9,7 +9,8 @@ var browserify = require('browserify');
 var buffer = require('vinyl-buffer');
 var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
-var imagemin = require('gulp-imagemin');
+var uglify = require('gulp-uglify');
+var cssmin = require('gulp-cssmin');
 
 var messages = {
     jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build'
@@ -57,7 +58,7 @@ gulp.task('sass-develop', function () {
             includePaths: ['scss'],
             onError: browserSync.notify
         }))
-        .pipe(prefix(['last 3 versions'], { cascade: true }))
+        .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest('_site/css'))
         .pipe(browserSync.reload({stream:true}));
@@ -69,6 +70,9 @@ gulp.task('sass-build', function () {
             includePaths: ['scss']
         }))
         .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+        .pipe(cssmin({
+          keepSpecialComments: 0
+        }))
         .pipe(gulp.dest('_site/css'));
 });
 
@@ -87,6 +91,7 @@ gulp.task('js-develop', function () {
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('_site/js'))
     .pipe(browserSync.reload({stream:true}));
@@ -102,17 +107,9 @@ gulp.task('js-build', function () {
   bundler.bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest('_site/js'))
 });
-
-/**
- * Copy and compress any site images
- */
- gulp.task('copy-images', () =>
-     gulp.src('images/**/*.{jpg,png,svg}')
-         .pipe(imagemin())
-         .pipe(gulp.dest('_site/images'))
- );
 
 /**
  * Watch scss files for changes & recompile
