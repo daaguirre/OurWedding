@@ -1,4 +1,4 @@
-# barryandgillian.wedding
+# <https://daaguirre.github.io/OurWedding>
 
 [![Stories in Ready](https://badge.waffle.io/barrymcgee/barryandgillian.wedding.png?label=ready&title=Ready)](https://waffle.io/barrymcgee/barryandgillian.wedding)
 [![Known Vulnerabilities](https://snyk.io/test/npm/name/badge.svg)](https://snyk.io/test/npm/name)
