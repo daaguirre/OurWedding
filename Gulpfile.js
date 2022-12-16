@@ -1,8 +1,8 @@
-var gulp = require('gulp');
+var gulp        = require('gulp');
 var browserSync = require('browser-sync');
-var sass = require('gulp-sass');
-var prefix = require('gulp-autoprefixer');
-var cp = require('child_process');
+var sass        = require('gulp-sass');
+var prefix      = require('gulp-autoprefixer');
+var cp          = require('child_process');
 var sourcemaps = require('gulp-sourcemaps');
 var babelify = require('babelify');
 var browserify = require('browserify');
@@ -10,6 +10,7 @@ var buffer = require('vinyl-buffer');
 var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var imagemin = require('gulp-imagemin');
+var deploy = require('gulp-gh-pages');
 
 var messages = {
     jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build'
@@ -18,14 +19,14 @@ var messages = {
 /**
  * Build the Jekyll Site
  */
-gulp.task('jekyll-develop', function (done) {
-    browserSync.notify(messages.jekyllBuild);
-    return cp.spawn('jekyll', ['build'], { stdio: 'inherit' })
-        .on('close', done);
-});
+ gulp.task('jekyll-develop', function (done) {
+     browserSync.notify(messages.jekyllBuild);
+     return cp.spawn('jekyll', ['build'], {stdio: 'inherit'})
+         .on('close', done);
+ });
 
 gulp.task('jekyll-build', function (done) {
-    return cp.spawn('jekyll', ['build'], { stdio: 'inherit' })
+    return cp.spawn('jekyll', ['build'], {stdio: 'inherit'})
         .on('close', done);
 });
 
@@ -39,7 +40,7 @@ gulp.task('jekyll-rebuild', ['jekyll-develop'], function () {
 /**
  * Wait for jekyll-build, then launch the Server
  */
-gulp.task('browser-sync', ['sass-develop', 'js-develop', 'jekyll-develop'], function () {
+gulp.task('browser-sync', ['sass-develop', 'js-develop', 'jekyll-develop'], function() {
     browserSync({
         server: {
             baseDir: '_site'
@@ -60,7 +61,7 @@ gulp.task('sass-develop', function () {
         .pipe(prefix(['last 3 versions'], { cascade: true }))
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest('_site/css'))
-        .pipe(browserSync.reload({ stream: true }));
+        .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('sass-build', function () {
@@ -76,52 +77,52 @@ gulp.task('sass-build', function () {
  * Compile files from _js
  */
 gulp.task('js-develop', function () {
-    var bundler = browserify({
-        entries: '_js-es6/app.js',
-        debug: true
-    });
-    bundler.transform(babelify);
+  var bundler = browserify({
+    entries: '_js-es6/app.js',
+    debug: true
+  });
+  bundler.transform(babelify);
 
-    bundler.bundle()
-        .on('error', function (err) { console.error(err); })
-        .pipe(source('app.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({ loadMaps: true }))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('_site/js'))
-        .pipe(browserSync.reload({ stream: true }));
+  bundler.bundle()
+    .on('error', function (err) { console.error(err); })
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('_site/js'))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('js-build', function () {
-    var bundler = browserify({
-        entries: '_js-es6/app.js',
-        debug: true
-    });
-    bundler.transform(babelify);
+  var bundler = browserify({
+    entries: '_js-es6/app.js',
+    debug: true
+  });
+  bundler.transform(babelify);
 
-    bundler.bundle()
-        .pipe(source('app.js'))
-        .pipe(buffer())
-        .pipe(gulp.dest('_site/js'))
+  bundler.bundle()
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('_site/js'))
 });
 
 /**
  * Copy and compress any site images
  */
-gulp.task('copy-images', () =>
-    gulp.src('images/**/*.{jpg,png,svg}')
-        .pipe(imagemin())
-        .pipe(gulp.dest('_site/images'))
-);
+ gulp.task('copy-images', () =>
+     gulp.src('images/**/*.{jpg,png,svg}')
+         .pipe(imagemin())
+         .pipe(gulp.dest('_site/images'))
+ );
 
 /**
  * Watch scss files for changes & recompile
  * Watch html/md files, run jekyll & reload BrowserSync
  */
 gulp.task('watch', function () {
-    gulp.watch(['_js-es6/**/*.js'], ['js-develop']);
-    gulp.watch(['_sass/**/*.scss'], ['sass-develop']);
-    gulp.watch(['**/*.html', '**/*.markdown', '**/*.md'], ['jekyll-rebuild']);
+  gulp.watch(['_js-es6/**/*.js'], ['js-develop']);
+  gulp.watch(['_sass/**/*.scss'], ['sass-develop']);
+  gulp.watch(['**/*.html', '**/*.markdown', '**/*.md'], ['jekyll-rebuild']);
 });
 
 /**
@@ -134,3 +135,14 @@ gulp.task('default', ['browser-sync', 'watch']);
  * Gulp 'build' task which is used to build the site on the production box.
  */
 gulp.task('build', ['jekyll-build', 'sass-build', 'js-build']);
+
+/**
+ * Push build to gh-pages
+ */
+gulp.task('deploy', function () {
+    return gulp.src("./_site/**/*")
+        .pipe(deploy({
+            remoteUrl: "https://github.com/daaguirre/OurWedding.git",
+            branch: "main"
+        }))
+});
