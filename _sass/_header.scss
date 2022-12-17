@@ -29,6 +29,9 @@
   }
 
   &__title {
+    img {
+        height: 2em;
+    }
     font-size: 3rem;
     padding: 0 2rem;
     text-transform: uppercase;
