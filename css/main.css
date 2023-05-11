@@ -90,10 +90,9 @@
 .pswp__container,
 .pswp__img {
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
       user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none; }
 
 .pswp__zoom-wrap {
@@ -311,7 +310,6 @@
 .pswp__counter,
 .pswp__share-modal {
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
       user-select: none; }
 
@@ -382,7 +380,7 @@ a.pswp__share--facebook:before {
   position: absolute;
   top: -12px;
   right: 15px;
-  border: 6px solid transparent;
+  border: 6px solid rgba(0, 0, 0, 0);
   border-bottom-color: #FFF;
   -webkit-pointer-events: none;
   -moz-pointer-events: none;
@@ -981,7 +979,6 @@ input[type='url'],
 textarea,
 select {
   -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   background-color: transparent;
   border: 0.1rem solid #d1d1d1;
@@ -1378,8 +1375,7 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "kern" 1;
-  -webkit-font-kerning: normal;
-          font-kerning: normal; }
+  font-kerning: normal; }
 
 h1,
 h2,
@@ -2021,5 +2017,3 @@ body {
     .gallery__item:before {
       border-bottom: 0;
       background-color: transparent; }
-
-/*# sourceMappingURL=maps/main.css.map */
