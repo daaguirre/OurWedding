@@ -226,7 +226,7 @@
   width: 44px;
   height: 44px; }
 
-@media (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
+@media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
   /* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */
   .pswp--svg .pswp__button,
   .pswp--svg .pswp__button--arrow--left:before,
@@ -978,6 +978,7 @@ input[type='text'],
 input[type='url'],
 textarea,
 select {
+  -webkit-appearance: none;
   appearance: none;
   background-color: transparent;
   border: 0.1rem solid #d1d1d1;
@@ -2016,5 +2017,3 @@ body {
     .gallery__item:before {
       border-bottom: 0;
       background-color: transparent; }
-
-/*# sourceMappingURL=maps/main.css.map */
