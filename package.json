@@ -1,7 +1,7 @@
 {
-    "name": "barryandgillian.wedding",
+    "name": "diegoyadri.wedding",
     "version": "0.0.1",
-    "description": "Codebase for https://barryandgillian.wedding",
+    "description": "Codebase for https://diegoyadri.wedding",
     "main": "_site/index.html",
     "scripts": {
         "test": "htmlproofer ./_site --only-4xx --check-html && bundle exec jekyll build && scss-lint ./_sass/**/*.scss && eslint _js-es6",
